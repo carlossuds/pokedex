@@ -1,11 +1,14 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './routes';
+import GlobalStyle from './styles/global';
 
 export const App = (): React.ReactElement => {
   return (
-    <div className="App">
-      {[1, 2, 3].map(item => (
-        <span>{item}</span>
-      ))}
-    </div>
+    <BrowserRouter>
+      <Routes />
+
+      <GlobalStyle />
+    </BrowserRouter>
   );
 };

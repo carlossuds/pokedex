@@ -35,7 +35,7 @@
         "tsx": "never"
       }
     ],
-    "prettier/prettier": "error",
+    "prettier/prettier": "warn",
     "no-use-before-define": "off",
     "no-underscore-dangle": "off",
     "react/jsx-props-no-spreading": "off",

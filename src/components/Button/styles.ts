@@ -11,6 +11,10 @@ export const Container = styled.button`
   color: var(--white);
   transition: background 0.2s ease;
 
+  span {
+    margin: 0 0.5rem;
+  }
+
   &:hover {
     background: ${lighten(0.2, String(cssVar('--blue', '#2f46cf')))};
   }

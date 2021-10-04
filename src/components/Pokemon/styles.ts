@@ -9,9 +9,9 @@ interface TypeProps<T> {
 
 export const Container = styled(animated.div)<TypeProps<'bug'>>`
   background: ${({ type }) =>
-    `linear-gradient(135deg, 
-      ${lighten(0.35, typeColors[type])},
-      ${lighten(0.25, typeColors[type])})`};
+    `radial-gradient(ellipse at top, 
+      ${lighten(0.2, typeColors[type])} 35%, 
+      ${typeColors[type]})`};
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
@@ -38,7 +38,7 @@ export const Container = styled(animated.div)<TypeProps<'bug'>>`
   strong {
     text-transform: capitalize;
     color: var(--white);
-    filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 1));
   }
 
   section {
@@ -61,4 +61,5 @@ export const TypeText = styled.span<TypeProps<'bug'>>`
   border-radius: 4px;
   padding: 0.25rem 0.5rem;
   font-size: 0.7rem;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 `;

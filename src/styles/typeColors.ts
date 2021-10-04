@@ -8,7 +8,7 @@ export const typeColors = {
   fire: '#AB2024',
   flying: '#4A677D',
   ghost: '#33336B',
-  grass: '#27CB4F',
+  grass: '#1D7742',
   ground: '#A58965',
   ice: '#86D2F5',
   normal: '#75515B',

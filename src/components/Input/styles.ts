@@ -1,13 +1,17 @@
 import styled from 'styled-components';
 
-export const Container = styled.input`
+interface Props {
+  isFocused: boolean;
+}
+
+export const Container = styled.input<Props>`
   width: 100%;
-  max-width: 20rem;
 
   height: 100%;
 
-  border: 2px solid var(--gray);
-  border-radius: 4px;
+  border: ${({ isFocused }) =>
+    isFocused ? '2.5px solid var(--blue)' : `2px solid var(--gray)`};
+  border-radius: 1rem;
 
   padding: 0.5rem;
   margin-bottom: 1rem;

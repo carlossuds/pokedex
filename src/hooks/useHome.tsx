@@ -21,6 +21,7 @@ export const useHome = () => {
   const [limit, setLimit] = useState(20);
 
   const [modalData, setModalData] = useState<IPokemonData>({} as IPokemonData);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const loadPokemonList = async () => {
@@ -44,6 +45,10 @@ export const useHome = () => {
     loadPokemonList();
   }, [offset, limit]);
 
+  useEffect(() => {
+    if (modalData) setIsModalOpen(true);
+  }, [modalData]);
+
   const isEndOfList = useMemo(() => offset + limit > 1118, [offset, limit]);
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -65,5 +70,7 @@ export const useHome = () => {
     offset,
     setOffset,
     handleSearch,
+    isModalOpen,
+    setIsModalOpen,
   };
 };

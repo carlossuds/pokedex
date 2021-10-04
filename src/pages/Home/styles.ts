@@ -19,7 +19,7 @@ export const Container = styled.div`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 3rem 0;
+  padding: 3rem 2rem;
 
   main {
     margin: 0 auto;
@@ -38,10 +38,31 @@ export const Content = styled.div`
       filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.7));
     }
 
+    > div {
+      display: flex;
+      align-items: center;
+
+      label {
+        text-transform: capitalize;
+        font-weight: 500;
+        margin-left: 0.25rem;
+      }
+    }
+
     .buttonsContainer {
       display: flex;
       flex: 1;
       justify-content: space-between;
+    }
+
+    form {
+      display: flex;
+      margin: 0 auto;
+      margin-bottom: 2rem;
+      height: 3rem;
+      width: 100%;
+      justify-content: center;
+      gap: 1rem;
     }
 
     ul {

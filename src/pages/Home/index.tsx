@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
-import Modal from 'react-modal';
+import { FaSearch } from 'react-icons/fa';
+import Modal from 'styled-react-modal';
 import logo from '../../assets/pokemon-logo.png';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
@@ -9,32 +10,41 @@ import { useHome } from '../../hooks/useHome';
 import { Container, Content } from './styles';
 
 export const Home = (): React.ReactElement => {
-  const { formRef, pokemonList, isEndOfList, setOffset, offset, handleSearch } =
-    useHome();
-
-  const [isOpen, setIsOpen] = useState(false);
+  const {
+    formRef,
+    pokemonList,
+    isEndOfList,
+    setOffset,
+    offset,
+    handleSearch,
+    isModalOpen,
+    setIsModalOpen,
+  } = useHome();
 
   const prevNextButtons = () => (
     <div className="buttonsContainer">
-      <Button onClick={() => setOffset(prev => prev - 20)} disabled={!offset}>
-        <AiFillCaretLeft />
+      <Button
+        onClick={() => setOffset(prev => prev - 20)}
+        disabled={!offset}
+        leftIcon={AiFillCaretLeft}
+      >
         Previous
       </Button>
       <Button
         onClick={() => setOffset(prev => prev + 20)}
         disabled={isEndOfList}
+        rightIcon={AiFillCaretRight}
       >
         Next
-        <AiFillCaretRight />
       </Button>
     </div>
   );
 
   const renderPokemonModal = () => (
     <Modal
-      isOpen={isOpen}
-      onRequestClose={() => setIsOpen(false)}
-      style={{ overlay: { background: 'rgba(0, 0, 0, 0.75)' } }}
+      isOpen={isModalOpen}
+      onBackgroundClick={() => setIsModalOpen(false)}
+      onEscapeKeydown={() => setIsModalOpen(false)}
     >
       <h1>SHALOM</h1>
     </Modal>
@@ -47,8 +57,13 @@ export const Home = (): React.ReactElement => {
           <img src={logo} alt="Pokemon logo" />
 
           <form ref={formRef} onSubmit={handleSearch}>
-            <Input type="text" placeholder="> Search for a Pokémon" />
-            <Button type="submit">Search</Button>
+            <Input
+              type="text"
+              placeholder="> Search Pokémon by name or number"
+            />
+            <Button type="submit" rightIcon={FaSearch}>
+              Search
+            </Button>
           </form>
 
           {prevNextButtons()}
@@ -59,7 +74,7 @@ export const Home = (): React.ReactElement => {
                 key={name}
                 name={name}
                 url={url}
-                openModal={() => setIsOpen(true)}
+                openModal={() => setIsModalOpen(true)}
               />
             ))}
           </ul>

@@ -3,8 +3,8 @@ import { createGlobalStyle } from 'styled-components';
 export default createGlobalStyle`  
   :root {
     --white: #fff;
-
     --gray: #999999;
+    --grayer: #666666;
 
     --black: #000;
 

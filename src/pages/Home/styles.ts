@@ -1,7 +1,6 @@
-import { cssVar, darken, lighten } from 'polished';
+import { cssVar, darken } from 'polished';
 import styled from 'styled-components';
 import background from '../../assets/pokemon-bg.jpg';
-import { typeColors } from '../../styles/typeColors';
 
 export const Container = styled.div`
   width: 100%;
@@ -83,19 +82,21 @@ interface TypeProps<T> {
 }
 
 export const ModalContent = styled.div<TypeProps<'bug'>>`
-  //background: ${({ type }) => lighten(0.2, typeColors[type])};
   background: var(--white);
   color: var(--black);
-  //text-shadow: 1px 1px 2px black;
 
   border-radius: 2rem;
-  padding: 2rem;
+  padding: 2.5rem;
 
   height: 35rem;
   width: 35rem;
   max-width: calc(100% - 2rem);
 
   overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   header {
     display: flex;
@@ -121,31 +122,33 @@ export const ModalContent = styled.div<TypeProps<'bug'>>`
     margin-top: 3rem;
 
     img {
-      width: 50%;
+      width: 40%;
       filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.7));
     }
 
     > div {
       display: grid;
       grid-gap: 0.25rem;
+      width: 100%;
 
       > div {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-gap: 1rem;
-        font-weight: 400;
+        font-weight: 500;
 
         > span {
           text-align: right;
 
           &:nth-child(1) {
-            font-weight: 500;
             text-transform: capitalize;
+            font-weight: 400;
+            color: var(--grayer);
           }
 
           + span {
             text-align: left;
-            width: 6rem;
+            width: 100%;
           }
         }
 
@@ -154,6 +157,11 @@ export const ModalContent = styled.div<TypeProps<'bug'>>`
           align-items: center;
           gap: 1rem;
           width: 100%;
+
+          span {
+            width: 0;
+            text-align: center;
+          }
         }
       }
     }
@@ -197,6 +205,8 @@ export const StatBar = styled.hr<StatBarProps>`
   border-radius: 0.5rem;
   border: 0;
   height: 0.25rem;
+
+  margin-left: 1.5rem;
 
   width: ${({ value }) => `${value}%`};
 

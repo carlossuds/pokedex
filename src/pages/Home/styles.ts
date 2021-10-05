@@ -1,5 +1,7 @@
+import { lighten } from 'polished';
 import styled from 'styled-components';
 import background from '../../assets/pokemon-bg.jpg';
+import { typeColors } from '../../styles/typeColors';
 
 export const Container = styled.div`
   width: 100%;
@@ -74,4 +76,126 @@ export const Content = styled.div`
       width: 100%;
     }
   }
+`;
+
+interface TypeProps<T> {
+  type: T;
+}
+
+export const ModalContent = styled.div<TypeProps<'bug'>>`
+  //background: ${({ type }) => lighten(0.2, typeColors[type])};
+  background: var(--white);
+  color: var(--black);
+  //text-shadow: 1px 1px 2px black;
+
+  border-radius: 2rem;
+  padding: 2rem;
+
+  height: 35rem;
+  width: 35rem;
+  max-width: calc(100% - 2rem);
+
+  overflow-y: scroll;
+
+  header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+      text-transform: capitalize;
+      font-weight: 500;
+    }
+
+    div > div {
+      display: flex;
+      margin-top: 0.5rem;
+      gap: 0.5rem;
+    }
+  }
+
+  section {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 3rem;
+
+    img {
+      width: 50%;
+      filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.7));
+    }
+
+    > div {
+      display: grid;
+      grid-gap: 0.25rem;
+
+      > div {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1rem;
+        font-weight: 400;
+
+        > span {
+          text-align: right;
+
+          &:nth-child(1) {
+            font-weight: 500;
+            text-transform: capitalize;
+          }
+
+          + span {
+            text-align: left;
+            width: 6rem;
+          }
+        }
+
+        div {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  footer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    margin-top: 2rem;
+    text-transform: capitalize;
+    gap: 1.5rem;
+    justify-content: center;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      img {
+        width: 4rem;
+      }
+    }
+  }
+`;
+
+interface StatBarProps {
+  value: number;
+}
+
+export const StatBar = styled.hr<StatBarProps>`
+  border-radius: 0.5rem;
+  border: 0;
+  height: 0.25rem;
+
+  width: ${({ value }) => `${value}%`};
+
+  background-color: ${({ value }) => {
+    if (value < 30) return 'var(--red)';
+
+    if (value < 50) return 'var(--yellow)';
+
+    return 'var(--green)';
+  }};
 `;

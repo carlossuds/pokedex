@@ -1,12 +1,14 @@
 import React from 'react';
 import { use3dEffect } from 'use-3d-effect';
 import { usePokemon } from '../../hooks/usePokemon';
+import { IPokemonData } from '../../types/pokemon';
+import { formatId } from '../../utils/formatters';
 import { Container, TypeText } from './styles';
 
 interface Props {
   name: string;
   url: string;
-  openModal: () => void;
+  openModal: (pokemonData: IPokemonData) => void;
 }
 
 export const Pokemon = ({
@@ -14,9 +16,13 @@ export const Pokemon = ({
   url,
   openModal,
 }: Props): React.ReactElement => {
-  const { cardRef, data, mainType, formattedId } = usePokemon({ url });
+  const { cardRef, data, mainType } = usePokemon({ url });
 
   const { style, ...mouseHandlers } = use3dEffect(cardRef);
+
+  const handlePokemonClick = () => {
+    openModal(data);
+  };
 
   return (
     <Container
@@ -24,9 +30,9 @@ export const Pokemon = ({
       type={mainType.type.name as 'bug'}
       style={{ ...style }}
       {...mouseHandlers}
-      onClick={() => openModal()}
+      onClick={handlePokemonClick}
     >
-      <strong>{formattedId(data.id)}</strong>
+      <strong>{formatId(data.id)}</strong>
       <header>
         <img
           loading="lazy"
@@ -40,7 +46,7 @@ export const Pokemon = ({
 
         <div>
           {data.types?.map(({ type }) => (
-            <TypeText type={type.name as 'bug'}>
+            <TypeText key={type.name} type={type.name as 'bug'}>
               {type.name.toUpperCase()}
             </TypeText>
           ))}

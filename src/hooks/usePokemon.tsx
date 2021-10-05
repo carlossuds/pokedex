@@ -31,12 +31,9 @@ export const usePokemon = ({ url }: Props) => {
     };
   }, [data.types]);
 
-  const formattedId = (id: number) => `#${String(id).padStart(3, '0')}`;
-
   return {
     cardRef,
     data,
     mainType,
-    formattedId,
   };
 };

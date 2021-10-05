@@ -62,4 +62,6 @@ export const TypeText = styled.span<TypeProps<'bug'>>`
   padding: 0.25rem 0.5rem;
   font-size: 0.7rem;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  text-shadow: 1px 1px 2px black;
+  text-transform: uppercase;
 `;

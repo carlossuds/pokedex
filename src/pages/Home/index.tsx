@@ -6,8 +6,11 @@ import logo from '../../assets/pokemon-logo.png';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { Pokemon } from '../../components/Pokemon';
+import { TypeText } from '../../components/Pokemon/styles';
 import { useHome } from '../../hooks/useHome';
-import { Container, Content } from './styles';
+import { IPokemonData } from '../../types/pokemon';
+import { formatHeight, formatId, formatWeight } from '../../utils/formatters';
+import { Container, Content, ModalContent, StatBar } from './styles';
 
 export const Home = (): React.ReactElement => {
   const {
@@ -19,6 +22,9 @@ export const Home = (): React.ReactElement => {
     handleSearch,
     isModalOpen,
     setIsModalOpen,
+    modalData,
+    setModalData,
+    evolutions,
   } = useHome();
 
   const prevNextButtons = () => (
@@ -46,9 +52,74 @@ export const Home = (): React.ReactElement => {
       onBackgroundClick={() => setIsModalOpen(false)}
       onEscapeKeydown={() => setIsModalOpen(false)}
     >
-      <h1>SHALOM</h1>
+      <ModalContent
+        type={(modalData.types ? modalData.types[0].type.name : 'bug') as 'bug'}
+      >
+        <header>
+          <div>
+            <h1>{modalData.name}</h1>
+
+            <div>
+              {modalData.types?.map(({ type }) => (
+                <TypeText key={type.name} type={type.name as 'bug'}>
+                  {type.name}
+                </TypeText>
+              ))}
+            </div>
+          </div>
+
+          <strong>{formatId(modalData.id)}</strong>
+        </header>
+
+        <section>
+          <img
+            loading="lazy"
+            src={modalData?.sprites?.other?.['official-artwork']?.front_default}
+            alt={modalData.name}
+          />
+
+          <div>
+            <div>
+              <span>Height</span>
+              <span>{formatHeight(modalData.height)}</span>
+            </div>
+            <div>
+              <span>Weight</span>
+              <span>{formatWeight(modalData.weight)}</span>
+            </div>
+
+            {modalData.stats?.map(({ stat, base_stat }) => (
+              <div key={stat.name}>
+                <span>{stat.name}</span>
+                <div>
+                  <span>{base_stat}</span>
+                  <StatBar value={base_stat} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <footer>
+          {evolutions.map(({ id, name, sprites }) => (
+            <div>
+              <span>{formatId(id)}</span>
+              <img
+                src={sprites?.other?.['official-artwork']?.front_default}
+                alt={name}
+              />
+              <span>{name}</span>
+            </div>
+          ))}
+        </footer>
+      </ModalContent>
     </Modal>
   );
+
+  const handleOpenModal = (pokemonData: IPokemonData) => {
+    setModalData(pokemonData);
+    setIsModalOpen(true);
+  };
 
   return (
     <Container>
@@ -57,10 +128,7 @@ export const Home = (): React.ReactElement => {
           <img src={logo} alt="Pokemon logo" />
 
           <form ref={formRef} onSubmit={handleSearch}>
-            <Input
-              type="text"
-              placeholder="> Search Pokémon by name or number"
-            />
+            <Input type="text" placeholder="Search by name or number" />
             <Button type="submit" rightIcon={FaSearch}>
               Search
             </Button>
@@ -74,7 +142,7 @@ export const Home = (): React.ReactElement => {
                 key={name}
                 name={name}
                 url={url}
-                openModal={() => setIsModalOpen(true)}
+                openModal={handleOpenModal}
               />
             ))}
           </ul>

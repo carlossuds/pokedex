@@ -17,3 +17,8 @@ Deployed on <img src="https://seeklogo.com/images/N/netlify-logo-BD8F8A77E2-seek
   <img src="https://i0.wp.com/www.primefaces.org/wp-content/uploads/2017/09/feature-react.png?ssl=1" width="16" height="16" /> React 
  
  
+<img src="https://i.imgur.com/B19y50y.png" />
+
+<img src="https://i.imgur.com/kmhU7Ra.png" />
+
+<img src="https://i.imgur.com/hiXZHeD.png" />

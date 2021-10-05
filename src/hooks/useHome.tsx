@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { toast, ToastOptions } from 'react-toastify';
 import { pokeApi } from '../services/pokeApi';
 import { IPokemonData } from '../types/pokemon';
 import { getEndpoint } from '../utils/getEndpoint';
@@ -25,6 +26,16 @@ interface SpeciesEvolution {
 interface IEvolutionsResponse {
   chain: SpeciesEvolution;
 }
+
+const TOAST_CONFIG = (number: number): ToastOptions<{}> => ({
+  position: 'top-right',
+  autoClose: number * 1000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+});
 
 export const useHome = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -106,18 +117,35 @@ export const useHome = () => {
 
   const isEndOfList = useMemo(() => offset + limit > 1118, [offset, limit]);
 
-  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSearch = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ): Promise<void> => {
     e.preventDefault();
 
     const input = formRef.current?.getElementsByTagName('input')[0];
 
-    const { data } = await pokeApi.get<IPokemonData>(
-      `/pokemon/${input?.value.toLowerCase()}`,
-    );
+    const searchTerm = input?.value.toLowerCase() as string;
 
-    if (data) {
-      setModalData(data);
-      setIsModalOpen(true);
+    if (!searchTerm) {
+      toast.error('Check your search text ⚠️', TOAST_CONFIG(5));
+      return;
+    }
+
+    try {
+      const { data } = await pokeApi.get<IPokemonData>(
+        `/pokemon/${searchTerm}`,
+      );
+
+      if (data) {
+        setModalData(data);
+        setIsModalOpen(true);
+
+        toast.success('Found it! 🎉', TOAST_CONFIG(2));
+      } else {
+        toast.error('No Pokémon found 😞', TOAST_CONFIG(5));
+      }
+    } catch (er) {
+      toast.error('Check your search text ⚠️', TOAST_CONFIG(5));
     }
   };
 

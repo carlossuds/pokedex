@@ -1,6 +1,8 @@
 import React from 'react';
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
 import { FaSearch } from 'react-icons/fa';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Modal from 'styled-react-modal';
 import logo from '../../assets/pokemon-logo.png';
 import { Button } from '../../components/Button';
@@ -154,6 +156,18 @@ export const Home = (): React.ReactElement => {
         </main>
 
         {renderPokemonModal()}
+
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </Content>
     </Container>
   );

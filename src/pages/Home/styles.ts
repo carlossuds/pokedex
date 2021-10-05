@@ -1,4 +1,4 @@
-import { lighten } from 'polished';
+import { cssVar, darken, lighten } from 'polished';
 import styled from 'styled-components';
 import background from '../../assets/pokemon-bg.jpg';
 import { typeColors } from '../../styles/typeColors';
@@ -164,14 +164,25 @@ export const ModalContent = styled.div<TypeProps<'bug'>>`
     flex-wrap: wrap;
     margin: 0 auto;
     margin-top: 2rem;
-    text-transform: capitalize;
     gap: 1.5rem;
     justify-content: center;
 
-    div {
+    button {
+      background: var(--white);
       display: flex;
       flex-direction: column;
       align-items: center;
+      text-transform: capitalize;
+
+      padding: 1rem 2rem;
+
+      border-radius: 1rem;
+
+      transition: background 0.2s ease-in-out;
+
+      &:hover {
+        background: ${darken(0.1, String(cssVar('--white')))};
+      }
 
       img {
         width: 4rem;

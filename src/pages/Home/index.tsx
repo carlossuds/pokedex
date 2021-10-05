@@ -101,15 +101,18 @@ export const Home = (): React.ReactElement => {
         </section>
 
         <footer>
-          {evolutions.map(({ id, name, sprites }) => (
-            <div>
+          {evolutions.map(({ id, name, sprites, ...rest }) => (
+            <button
+              type="button"
+              onClick={() => setModalData({ id, name, sprites, ...rest })}
+            >
               <span>{formatId(id)}</span>
               <img
                 src={sprites?.other?.['official-artwork']?.front_default}
                 alt={name}
               />
               <span>{name}</span>
-            </div>
+            </button>
           ))}
         </footer>
       </ModalContent>

@@ -163,8 +163,6 @@ export const ModalContent = styled.div<TypeProps<'bug'>>`
     display: flex;
     flex-wrap: wrap;
     margin: 0 auto;
-    margin-top: 2rem;
-    gap: 1.5rem;
     justify-content: center;
 
     button {

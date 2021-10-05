@@ -19,6 +19,4 @@ Deployed on <img src="https://seeklogo.com/images/N/netlify-logo-BD8F8A77E2-seek
  
 <img src="https://i.imgur.com/B19y50y.png" />
 
-<img src="https://i.imgur.com/kmhU7Ra.png" />
-
-<img src="https://i.imgur.com/hiXZHeD.png" />
+<img src="https://i.imgur.com/dR5wvnL.png" />

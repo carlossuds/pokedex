@@ -181,7 +181,7 @@ export const ModalContent = styled.div<TypeProps<'bug'>>`
       transition: background 0.2s ease-in-out;
 
       &:hover {
-        background: ${darken(0.1, String(cssVar('--white')))};
+        background: ${darken(0.1, String(cssVar('--white', '#fff')))};
       }
 
       img {

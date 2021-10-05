@@ -112,7 +112,7 @@ export const useHome = () => {
     const input = formRef.current?.getElementsByTagName('input')[0];
 
     const { data } = await pokeApi.get<IPokemonData>(
-      `/pokemon/${input?.value}`,
+      `/pokemon/${input?.value.toLowerCase()}`,
     );
 
     if (data) {
